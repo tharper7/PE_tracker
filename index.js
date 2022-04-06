@@ -28,4 +28,23 @@ express()
       res.send("Error " + err);
     }
 })
+.get('/db-info', async(req, res) => {
+  try {
+    const client = await pool.connect();
+    const tables = await client.query(
+"SELECT c.relname AS table, a.attname AS column, t.typname AS type FROM pg_catalog.pg_class AS c LEFT JOIN pg_catalog.pg_attribute AS a ON c.oid = a.attrelid AND a.attnum > 0 LEFT JOIN pg_catalog.pg_type AS t ON a.atttypid = t.oid WHERE c.relname IN ('users', 'observations', 'students', 'schools', 'tasks') ORDER  BY c.relname, a.attnum;"
+);
+    
+    const locals = {
+      'tables': (tables) ? tables.rows : null
+    };
+    
+    res.render('pages/db-info', locals);
+    client.release();
+  }
+  catch (err) {
+    console.error(err);
+    res.send("Error: " + err);
+  }
+})
 .listen(PORT, () => console.log('Listening on ${ PORT }'));
