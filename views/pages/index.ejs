@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>PE Tracker</title>
+  <meta charset="UTF-8">
+</head>
+<body>
+  <h1>PE Tracker</h1>
+  <% tasks.forEach(function(r) {%>
+    <button id=' <%= r.id %>'
+            onClick='javascript:logTask(<%= r.id %>);'><%= r.name %></button>
+  <% }); %>
+  <script>
+    let currentTaskID = null;
+    
+    const logTask = async function(id) {
+      const response = await fetch('/log', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          users_id: -1,
+          students_id: -1,
+          tasks_id: id,
+          duration: "'+00:00:01'"
+        })
+      });
+      const result = await response.json();
+      console.log(result);
+      
+      currentTaskId = id;
+    };
+  </script>
+</body>
+</html>

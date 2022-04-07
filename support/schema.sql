@@ -7,7 +7,7 @@ CREATE TABLE users (
 CREATE TABLE students (
   id SERIAL PRIMARY KEY,
   name TEXT NOT NULL,
-  schol INT NOT NULL,
+  school INT NOT NULL,
   expires DATE NOT NULL
 );
 
@@ -29,3 +29,6 @@ CREATE TABLE tasks (
   id SERIAL PRIMARY KEY,
   name TEXT NOT NULL
 );
+
+INSERT INTO tasks (name) VALUES
+  ('Planned Pres.');

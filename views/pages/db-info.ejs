@@ -11,5 +11,11 @@
       <li><%= r.table %>: <%= r.column %> (<%= r.type %>)</li>
     <% }) %>
   </ul>
+  <h1>Observations</h1>
+  
+  <% obs.forEach(function(r) { %>
+    <li><%= r.tasks_id %> for <%= r.duration.minutes || "00" %>:<%= r.duration.seconds || "00" %></li>
+  <% }) %>
+  
 </body>
 </html>
